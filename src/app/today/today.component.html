@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-7">
+        <div class="col-md-12">
+            <!--row 1-->
+            <agm-map [latitude]="lat" [longitude]="lon">
+                <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
+            </agm-map>
+        </div>
+
+    </div>
+    <div class="col-sm-5">
+        <!--row 2-->
+        <div class="col-sm-12 text-center">
+            <div class="input-group mt-5">
+            </div>
+            <div class="col-sm-12">
+                <span class="temp"><img src="assets/{{weather.weather[0].icon}}.png" alt="01d.png">
+                    {{weather.main.temp | number: '1.0-0'}} &#176;C</span>
+                <p class="text-uppercase font-italic font-weight-bold">{{weather.weather[0].description}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

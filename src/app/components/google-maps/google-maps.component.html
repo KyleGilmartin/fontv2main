@@ -1,0 +1,77 @@
+<!-- app.component.html -->
+<mat-dialog-content class="mat-typography" style="height: 120vh;">
+    <div class="container" id="my-element">
+
+        <h1>Post</h1>
+        <hr>
+        
+        <div class="form-group">
+            <label>Enter Address</label>
+            <input type="text"  id="my-element" class="form-control" (keydown.enter)="$event.preventDefault()"
+                placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off"
+                type="text" #search>
+        </div>
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)"></agm-marker>
+        </agm-map>
+
+
+        <div class="container" *ngIf="!data" >
+            <form [formGroup]='postData' (ngSubmit)="onSubmit(search.value)">
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <label>Latitude</label>
+                        <input formControlName='latitude' type="text" class="form-control" readonly value="{{latitude}}">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Longitude</label>
+                        <input formControlName='longitude' type="text" class="form-control" readonly value="{{longitude}}">
+                    </div>
+                </div>
+                <div *ngIf="!data" class="row mt-4">
+                    <div class="col-sm-12">
+                        <label>Description</label>
+                        <textarea cols="10" rows="3" formControlName="description" placeholder="locationDescription"
+                            class="form-control"></textarea>
+                    </div>
+                </div>
+                <input type="file" #imagePicker hidden formControlName='image' (change)="onCoverImagePick($event)">
+                <div *ngIf="!data" class="row mt-3">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-outline-primary" (click)="imagePicker.click()">Upload
+                            Image</button>
+                        <P [hidden]='!imgCheck'>{{coverImagePreview}}</P>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-outline-success" style="float: right;">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="data" class="panel panel-primary" style="width: 44em">
+            <div class="panel-heading" style="font-weight: bold;margin-top: 20px;">
+                Comments
+            </div>
+            <hr>   
+
+            <div class="panel-body">
+
+                <div >
+                    <div  *ngFor="let comment of data.comments">
+                        <b>{{comment.Name}}</b>
+                        <p>{{comment.Comment}} </p>
+                        <hr>
+                    </div>
+                    
+                    <b>New Comment</b><br />
+
+                    <input #comment ng-model="Comment" Style="width:40%;display:inline-block;"
+                        placeholder="Write Your Name.. " />
+                    <button class="btn btn-danger" (click)="addcomment(comment.value)" style="margin-left: 2em;"> Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

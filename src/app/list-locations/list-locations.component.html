@@ -1,0 +1,90 @@
+<div class="container popover-header">
+    <div class="card shadow" style="width: 21rem ; display:table-cell ; ">
+        <div class="inner">
+            <img class="card-img-top hover-zoom" style="width: 21rem;height:15em" src="{{location.image}}" alt="Card image cap">
+        </div>
+    
+        <div class="card-body" style="height: 100px ; overflow-y:auto;">
+            <h5 class="card-title">{{location.name}} 
+            <button mat-icon-button aria-label="Post" *ngIf = "!showDiv" (click)="onLocationClick(location)">
+                <mat-icon class="color: darkcyan;">location_on</mat-icon>
+            </button>
+            <button mat-icon-button  (click)="deleteLoc(location)" *ngIf = "showDiv"> 
+                <mat-icon class="color: darkcyan;">delete</mat-icon></button>
+            </h5>
+            <p class="card-text">{{location.description}}</p>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{location.name}}</h4>
+        <p class="card-text">{{location.lon}} {{location.lat}} </p>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>{{location.name}}</p>
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="col-md-12">
+                    <!--row 1-->
+                    <agm-map [latitude]="lat" [longitude]="lon">
+                        <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
+                    </agm-map>
+                </div>
+
+            </div>
+            <div class="col-sm-5">
+                <!--row 2-->
+                <div class="col-sm-12 text-center">
+                    <div class="input-group mt-5">
+                    </div>
+                    <div class="col-sm-12">
+                        <span class="temp"><img src="assets/{{weather.weather[0].icon}}.png" alt="01d.png">
+                            {{weather.main.temp | number: '1.0-0'}} &#176;C</span>
+                        <p class="text-uppercase font-italic font-weight-bold">{{weather.weather[0].description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-comment"></span>
+                Comments
+            </div>
+            <div class="panel-body">
+                <b>Ahmed</b>
+                <p>hello there , this is example </p>
+                <hr>
+
+                <b>Mike</b>
+                <p>hello there , this is example </p>
+                <hr>
+
+                <b>John</b>
+                <p>hello there , this is example </p>
+                <hr>
+                <div ng-app="">
+                    <b>{{Name}}</b>
+                    <p>{{Comment}} </p>
+
+                    <hr>
+                    <b>New Comment</b><br />
+
+                    <input ng-model="Comment" Style="width:40%;display:inline-block;" class="form-control"
+                        placeholder="Write Your Name.. " />
+                    <button (click)="addcomment()" class="btn btn-danger"> Comment</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+    </div>
+</ng-template>

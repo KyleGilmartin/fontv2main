@@ -1,0 +1,21 @@
+<div class="container history-container">
+    <div *ngFor="let item of data" class="weather-card card">
+        <div class="card-body">
+            <button class="remove-button btn btn-light" (click)="remove(item)">
+                <span>
+                    x
+                </span>
+            </button>
+            <h5 class="card-title">{{item.name}}</h5>
+            <div class="Col-sm-12 text-center">
+                <span class="temp">
+                    <img src="{{item.image}}" alt="weather.png">
+                    {{ item.description | number: '1.0-0' }} &#176;C
+                </span>
+                <p class="text-upperCase font-italic font-weight-bold">
+                    {{item.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

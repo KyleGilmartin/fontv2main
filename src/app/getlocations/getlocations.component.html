@@ -1,0 +1,12 @@
+<app-list-locations
+    *ngFor="let b of locationList;let i=index " 
+    [location]="b" [showDiv]="showDiv"
+    [openDialog]="openDialog" 
+    [class.bg-info]="isSelected(b)"
+    [deleteLocation]="deleteLocation.bind(this)"
+    [class.text-white]="isSelected(b)"    
+    >
+
+
+</app-list-locations>
+<!-- (click)='openDialog(b)'  -->
